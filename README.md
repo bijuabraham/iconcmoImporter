@@ -6,4 +6,4 @@
 
 Import the csv file into IconCMO using IconCMO API
 API Documentation for ICONCMO available at https://secure1.iconcmo.com/developer/
-For picture loading, images are loaded tin a folder with the id as filename
+For picture loading, images are loaded into a folder with the id as filename
