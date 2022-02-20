@@ -50,7 +50,7 @@ def get_envelopes(dry_run, debug):
     for h in r.json()["envelopes"]:
         id_to_env[h["household_id"]] = h["number"]
         if debug:
-            print "HH {}".format(json.dumps(h, indent=4))
+            print("HH {}".format(json.dumps(h, indent=4)))
     return id_to_env
 
 def get_pg(hhid_to_env_dict, dry_run, debug):
@@ -65,7 +65,7 @@ def get_pg(hhid_to_env_dict, dry_run, debug):
     full_hh_list = []
     for h in r.json()["household"]:
         if debug:
-            print "HH {}".format(json.dumps(h, indent=4))
+            print("HH {}".format(json.dumps(h, indent=4)))
         pg_list = h.get('groups')
         for pg in pg_list:
             area = pg.get('name')
