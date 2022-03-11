@@ -18,6 +18,7 @@ AUTH = {
 	"Username": "bijuabra",
 	"Password": "JungleB00k"
 }
+# "Password": "$3@##L3"
 
 relationship_map = {
 	"Head of Family": "Husband",
@@ -49,11 +50,15 @@ ENDPOINT = "https://secure1.iconcmo.com/api/"
 # }
 
 
-def flag_multiple_heads(f):
+def flag_multiple_missing_heads(f):
 	df = pd.read_csv(f)
 	f.seek(0)
 	by_address = df.groupby(["Address1", "Address2"])
 	for addr_tuple, frame in by_address:
+		counts = frame["FamilyRole"].value_counts()
+		if "Head of Family" not in counts:
+			print(addr_tuple)
+			return True
 		if frame["FamilyRole"].value_counts()["Head of Family"] != 1:
 			return True
 	return False
@@ -329,6 +334,6 @@ if __name__ == "__main__":
 	if args.delete_all:
 		delete_all(args.dry_run, args.debug)
 	else:
-		if flag_multiple_heads(args.individuals):
+		if flag_multiple_missing_heads(args.individuals):
 			raise ValueError("Multiple or missing head(s) of family")
 		ret = write_members(args.individuals, args.households, args.dry_run, args.household_cap, args.debug)
